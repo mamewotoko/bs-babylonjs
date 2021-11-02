@@ -1,6 +1,11 @@
 [WIP] bs-babylonjs
 =============
 
+Demo
+----
+* [sphere](https://mamewotoko.github.io/bs-babylonjs/)
+
+
 Build
 ------
 
