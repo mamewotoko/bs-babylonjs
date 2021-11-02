@@ -12,6 +12,11 @@ jobs:
       run: |
         npm i
         ./build.sh
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
 
   linux:
     runs-on: ubuntu-latest
@@ -22,11 +27,3 @@ jobs:
       run: |
         npm i
         ./build.sh
-        mkdir docs
-        cp -r index.html js docs
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
