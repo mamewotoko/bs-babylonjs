@@ -1,0 +1,30 @@
+name: CI
+
+on: [push]
+
+jobs:
+  mac:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build bucklescript
+      run: |
+        npm i
+        ./build.sh
+
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build bucklescript
+      run: |
+        npm i
+        ./build.sh
+
+    # - name: Deploy
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./public
