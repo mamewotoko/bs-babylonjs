@@ -10,7 +10,7 @@
         "doc": "mkdir -p docs && yarn run bsdoc build -o docs bs-three"
     },
     "devDependencies": {
-        "webpack-cli": "^4.9.1"
+        "webpack-cli": "^4.9.1",
         "babelify": "^10.0.0",
         "babylonjs": "^4.2.0",
         "browserify": "^17.0.0",
