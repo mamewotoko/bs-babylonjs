@@ -23,7 +23,7 @@ jobs:
         npm i
         ./build.sh
         mkdir docs
-        cp index.html js docs
+        cp -r index.html js docs
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
