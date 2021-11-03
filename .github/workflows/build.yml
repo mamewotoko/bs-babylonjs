@@ -12,6 +12,8 @@ jobs:
       run: |
         npm i
         ./build.sh
+        cat js/main.js
+
         mkdir public
         cp -r index.html js public
     - name: Deploy
