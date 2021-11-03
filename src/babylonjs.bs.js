@@ -5,7 +5,7 @@ var Caml_module = require("bs-platform/lib/js/caml_module.js");
 
 var MeshBuilder = Caml_module.init_mod([
       "babylonjs.ml",
-      131,
+      142,
       6
     ], {
       TAG: /* Module */0,
@@ -39,6 +39,8 @@ var Scene;
 
 var FreeCamera;
 
+var DeviceOrientationCamera;
+
 var DynamicTexture;
 
 var HemisphericLight;
@@ -50,6 +52,7 @@ exports.Color3 = Color3;
 exports.Engine = Engine;
 exports.Scene = Scene;
 exports.FreeCamera = FreeCamera;
+exports.DeviceOrientationCamera = DeviceOrientationCamera;
 exports.DynamicTexture = DynamicTexture;
 exports.HemisphericLight = HemisphericLight;
 exports.StandardMaterial = StandardMaterial;

@@ -71,6 +71,17 @@ sig
   external make: string -> Vector3.t -> Scene.t -> t = "FreeCamera" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = FreeCamera
 
+module rec DeviceOrientationCamera:
+sig
+  class type _freecamera =
+    object
+      method attachControl: bool -> unit
+      method setTarget: Vector3.t -> unit
+    end [@bs]
+  type t = _freecamera Js.t
+  external make: string -> Vector3.t -> Scene.t -> t = "DeviceOrientationCamera" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
+end = DeviceOrientationCamera
+
 module rec DynamicTexture:
 sig
   class type _dynamictexture =
@@ -120,7 +131,7 @@ sig
   sig
     type param = {
         segments: int [@bs.optional];
-        diameter: int [@bs.optional];
+        diameter: float [@bs.optional];
         (* sideOrientation: *)
       } [@@bs.deriving abstract]
 
