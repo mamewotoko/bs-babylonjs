@@ -73,12 +73,13 @@ end = FreeCamera
 
 module rec DeviceOrientationCamera:
 sig
-  class type _freecamera =
+  class type _camera =
     object
       method attachControl: bool -> unit
       method setTarget: Vector3.t -> unit
+      method speed: float [@@bs.set] [@@bs.get]
     end [@bs]
-  type t = _freecamera Js.t
+  type t = _camera Js.t
   external make: string -> Vector3.t -> Scene.t -> t = "DeviceOrientationCamera" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = DeviceOrientationCamera
 

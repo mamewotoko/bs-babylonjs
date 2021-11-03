@@ -5,7 +5,7 @@ var Caml_module = require("bs-platform/lib/js/caml_module.js");
 
 var MeshBuilder = Caml_module.init_mod([
       "babylonjs.ml",
-      142,
+      143,
       6
     ], {
       TAG: /* Module */0,

@@ -25,7 +25,7 @@ var engine = new BabylonJs.Engine(canvas, true, {
 
 var scene = new BabylonJs.Scene(engine);
 
-var v = new BabylonJs.Vector3(0.0, 3.0, -3.0);
+var v = new BabylonJs.Vector3(0.0, 3.0, -5.0);
 
 var camera = new BabylonJs.DeviceOrientationCamera("camera1", v, scene);
 
@@ -49,6 +49,8 @@ sphere.position.y = 1.0;
 camera.setTarget(new BabylonJs.Vector3(0.0, 0.0, 0.0));
 
 camera.attachControl(true);
+
+camera.speed = 0.1;
 
 engine.runRenderLoop(function (param) {
       return scene.render();

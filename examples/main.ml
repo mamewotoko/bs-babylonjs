@@ -15,7 +15,7 @@ let _ =
                                ~stencil:true
                                ())) in
      let scene = Scene.make engine in
-     let v =  Vector3.make 0.0 3.0 (~-.3.0) in
+     let v =  Vector3.make 0.0 3.0 (~-.5.0) in
      (* let camera = FreeCamera.make "camera1" v scene in *)
      let camera = DeviceOrientationCamera.make "camera1" v scene in
      let _ = HemisphericLight.make "light1" (Vector3.make 0.0 1.0 1.0) scene in
@@ -32,4 +32,5 @@ let _ =
      sphere ## position ## y #= 1.0;
      camera ## setTarget (Vector3.make 0.0 0.0 0.0);
      camera ## attachControl true;
+     camera ## speed #= 0.1;
      engine ## runRenderLoop (fun () -> scene ## render ());
