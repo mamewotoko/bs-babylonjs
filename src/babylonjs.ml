@@ -54,6 +54,7 @@ module rec Scene:
     class type _scene =
       object
         method render: unit -> unit
+        method clearColor: Color3.t [@@bs.set] [@@bs.get]
       end [@bs]
     type t = _scene Js.t
     external make: Engine.t
@@ -99,6 +100,35 @@ sig
   external make: string -> param -> Scene.t -> t = "DynamicTexture" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = DynamicTexture
 
+module rec VideoTexture:
+sig
+  (* tmp Video Element *)
+  class type _video_element =
+    object
+      method play: unit -> unit
+      method pause: unit -> unit
+      method paused: bool [@@bs.set] [@@bs.get]
+    end [@bs]
+
+  type video_t = _video_element Js.t
+  class type _videotexture =
+    object
+      method video: video_t [@@bs.set] [@@bs.get]
+      (* method getCotext: unit -> Canvas2d.t
+       * method hasAlpha: bool [@@bs.set] [@@bs.get]
+       * method drawText: string -> float -> float -> string (\* font *\) -> Color3.t -> string ->
+bool -> unit *)
+    end [@bs]
+  type t = _videotexture Js.t
+  external make: string -> string (* video path *) -> Scene.t -> bool -> t = "VideoTexture" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
+  type param = {
+      maxWidth: int [@bs.optional];
+      maxHeight: int [@bs.optional];
+      (* sideOrientation: *)
+    } [@@bs.deriving abstract]
+  external createFromWebCam: Scene.t -> (t -> unit) -> param -> t = "BabylonJs.VideoTexture.CreateFromWebCam" [@@bs.val]
+end = VideoTexture
+
 module rec HemisphericLight:
 sig
   type t
@@ -112,6 +142,8 @@ sig
     object
       method alpha: float [@@bs.set] [@@bs.get]
       method diffuseColor: Color3.t [@@bs.set] [@@bs.get]
+      (* TODO: make abstract Texture.t *)
+      method diffuseTexture: VideoTexture.t [@@bs.set] [@@bs.get]
     end [@bs]
   type t = _standard_material Js.t
   external make: string -> Scene.t -> t = "StandardMaterial" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
@@ -124,6 +156,7 @@ sig
   class type _mesh =
     object
       method position: Vector3.t [@@bs.get]
+      method rotation: Vector3.t [@@bs.set] [@@bs.get]
       (* TODO: modify type to material*)
       method material: StandardMaterial.t [@@bs.set] [@@bs.get]
     end [@bs]
