@@ -27,6 +27,13 @@ let main _ =
                                            ~diameter:2.
                                            ())
                                         scene) in
+     let plane = MeshBuilder.Plane.(create "plane"
+                                      (param
+                                         ~width:10.
+                                         ~height:10.
+                                         ~updatable:true
+                                         ())
+                                      scene) in
      let material = StandardMaterial.make "red" scene in
      material ## alpha #= 1.0;
      material ## diffuseColor #= (Color3.make 1.0 0. 0.);

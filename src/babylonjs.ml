@@ -150,4 +150,19 @@ sig
       } [@@bs.deriving abstract]
     external create: string -> param -> Scene.t -> t = "BabylonJs.MeshBuilder.CreateLines" [@@bs.val]
   end
+
+  module Plane:
+  sig
+    type param = {
+        size: float [@bs.optional];
+        width: float [@bs.optional];
+        height: float [@bs.optional];
+        updatable: bool [@bs.optional];
+        (* sizeOrientation: float [@bs.optional]; *)
+        (* sourcePlane: float [@bs.optional]; *)
+        (* frontUVs: float [@bs.optional]; *)
+        (* backUVs: float [@bs.optional]; *)
+      } [@@bs.deriving abstract]
+    external create: string -> param -> Scene.t -> t = "BabylonJs.MeshBuilder.CreatePlane"  [@@bs.val]
+  end
 end = MeshBuilder
