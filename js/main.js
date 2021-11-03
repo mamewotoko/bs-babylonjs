@@ -53,6 +53,8 @@ camera.attachControl(true);
 
 camera.speed = 0.1;
 
+showWorldAxis(100, scene);
+
 engine.runRenderLoop(function (param) {
       return scene.render();
 });
