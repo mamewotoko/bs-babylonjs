@@ -7,7 +7,31 @@ var BabylonJs = require("babylonjs/babylon.js");
 
 var Not_found_error = /* @__PURE__ */Caml_exceptions.create("Main.Not_found_error");
 
+var pi = 2 * Math.asin(1);
+
 var canvas_id = "renderCanvas";
+
+function add_video(scene) {
+  var texture = new BabylonJs.VideoTexture("video", "movie/deinter_mini10.mp4", scene, false);
+  var video_material = new BabylonJs.StandardMaterial("video_material", scene);
+  var plane = BabylonJs.MeshBuilder.CreatePlane("plane", {
+    width: 12,
+    height: 9,
+    updatable: true
+  }, scene);
+  video_material.diffuseColor = new BabylonJs.Color3(1, 1, 1);
+  video_material.diffuseTexture = texture;
+  plane.material = video_material;
+  plane.position.z = 5;
+  plane.position.y = 9 / 2.0;
+  document.addEventListener("click", function (param) {
+    if (texture.video.paused) {
+      return texture.video.play();
+    } else {
+      return texture.video.pause();
+    }
+  }, false);
+}
 
 function main(param) {
   var canvas = document.getElementById(canvas_id);
@@ -23,18 +47,20 @@ function main(param) {
     stencil: true
   });
   var scene = new BabylonJs.Scene(engine);
-  var v = new BabylonJs.Vector3(0.0, 3.0, -5.0);
+  var v = new BabylonJs.Vector3(0, 1, -10.0);
   var camera = new BabylonJs.DeviceOrientationCamera("camera1", v, scene);
-  new BabylonJs.HemisphericLight("light1", new BabylonJs.Vector3(0.0, 1.0, 1.0), scene);
+  new BabylonJs.HemisphericLight("light1", new BabylonJs.Vector3(0.0, 3.0, -5.0), scene);
   var sphere = BabylonJs.MeshBuilder.CreateSphere("sphere1", {
     segments: 16,
     diameter: 2
   }, scene);
   var material = new BabylonJs.StandardMaterial("red", scene);
+  scene.clearColor = new BabylonJs.Color3(1, 1, 1);
   material.alpha = 1.0;
   material.diffuseColor = new BabylonJs.Color3(1.0, 0, 0);
   sphere.material = material;
   sphere.position.y = 1.0;
+  sphere.position.x = 5.0;
   camera.setTarget(new BabylonJs.Vector3(0.0, 0.0, 0.0));
   camera.attachControl(true);
   camera.speed = 0.1;
@@ -47,9 +73,11 @@ function main(param) {
 window.addEventListener("DOMContentLoaded", main);
 
 exports.Not_found_error = Not_found_error;
+exports.pi = pi;
 exports.canvas_id = canvas_id;
+exports.add_video = add_video;
 exports.main = main;
-/*  Not a pure module */
+/* pi Not a pure module */
 
 },{"babylonjs/babylon.js":2,"bs-platform/lib/js/caml_exceptions.js":3}],2:[function(require,module,exports){
 (function (global){(function (){
