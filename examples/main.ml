@@ -1,6 +1,8 @@
 open Webapi
 open Babylonjs
 
+external showWorldAxis: float -> Scene.t -> unit = "showWorldAxis" [@@bs.val]
+
 exception Not_found_error of string
 
 let canvas_id = "renderCanvas"
@@ -33,4 +35,5 @@ let _ =
      camera ## setTarget (Vector3.make 0.0 0.0 0.0);
      camera ## attachControl true;
      camera ## speed #= 0.1;
+     showWorldAxis 100. scene;
      engine ## runRenderLoop (fun () -> scene ## render ());

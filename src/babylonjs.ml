@@ -88,6 +88,8 @@ sig
   class type _dynamictexture =
     object
       method getCotext: unit -> Canvas2d.t
+      method hasAlpha: bool [@@bs.set] [@@bs.get]
+      method drawText: string -> float -> float -> string (* font *) -> Color3.t -> string -> bool -> unit
     end [@bs]
   type t = _dynamictexture Js.t
   type param = {
@@ -139,5 +141,13 @@ sig
     (* TODO add "MeshBuilder" as submodule *)
     (* TODO ... do not use BabylonJS... *)
     external create: string -> param -> Scene.t -> t = "BabylonJs.MeshBuilder.CreateSphere" [@@bs.val]
+  end
+
+  module Lines:
+  sig
+    type param = {
+        points: Vector3.t Js.Array.t
+      } [@@bs.deriving abstract]
+    external create: string -> param -> Scene.t -> t = "BabylonJs.MeshBuilder.CreateLines" [@@bs.val]
   end
 end = MeshBuilder

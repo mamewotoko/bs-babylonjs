@@ -5,28 +5,46 @@ var Caml_module = require("bs-platform/lib/js/caml_module.js");
 
 var MeshBuilder = Caml_module.init_mod([
       "babylonjs.ml",
-      143,
+      153,
       6
     ], {
       TAG: /* Module */0,
-      _0: [[
+      _0: [
+        [
           {
             TAG: /* Module */0,
             _0: []
           },
           "Sphere"
-        ]]
+        ],
+        [
+          {
+            TAG: /* Module */0,
+            _0: []
+          },
+          "Lines"
+        ]
+      ]
     });
 
 Caml_module.update_mod({
       TAG: /* Module */0,
-      _0: [[
+      _0: [
+        [
           {
             TAG: /* Module */0,
             _0: []
           },
           "Sphere"
-        ]]
+        ],
+        [
+          {
+            TAG: /* Module */0,
+            _0: []
+          },
+          "Lines"
+        ]
+      ]
     }, MeshBuilder, MeshBuilder);
 
 var Vector3;
