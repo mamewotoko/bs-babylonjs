@@ -51,7 +51,7 @@ let main _ =
      let v =  Vector3.make 0. 1. (~-.10.0) in
      (* let camera = FreeCamera.make "camera1" v scene in *)
      let camera = DeviceOrientationCamera.make "camera1" v scene in
-     let _ = HemisphericLight.make "light1" (Vector3.make 0.0 3.0 (~-.5.0)) scene in
+     let _ = HemisphericLight.make "light1" (Vector3.make 0.0 10.0 (~-.5.0)) scene in
      let sphere = MeshBuilder.Sphere.(create "sphere1"
                                         (param
                                            ~segments:16
@@ -67,12 +67,12 @@ let main _ =
      sphere ## position ## y #= 1.0;
      sphere ## position ## x #= 5.0;
 
-     camera ## setTarget (Vector3.make 0.0 0.0 0.0);
+     camera ## setTarget (Vector3.make 0.0 4.0 0.0);
      camera ## attachControl true;
      camera ## speed #= 0.1;
      (* camera ## position ## y #= 8.; *)
 
-     (* add_video scene; *)
+     add_video scene;
      (* plane ## rotation ## y #= pi; *)
      (* texture ## video ## play (); *)
      showWorldAxis 100. scene;
