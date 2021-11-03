@@ -10,7 +10,6 @@
         "doc": "mkdir -p docs && yarn run bsdoc build -o docs bs-three"
     },
     "devDependencies": {
-        "@babel/core": "^7.16.0",
         "@babel/preset-env": "^7.16.0",
         "babelify": "^8.0.0",
         "babylonjs": "^4.2.0",
