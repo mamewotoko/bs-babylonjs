@@ -49,7 +49,7 @@ function main(param) {
   var scene = new BabylonJs.Scene(engine);
   var v = new BabylonJs.Vector3(0, 1, -10.0);
   var camera = new BabylonJs.DeviceOrientationCamera("camera1", v, scene);
-  new BabylonJs.HemisphericLight("light1", new BabylonJs.Vector3(0.0, 3.0, -5.0), scene);
+  new BabylonJs.HemisphericLight("light1", new BabylonJs.Vector3(0.0, 10.0, -5.0), scene);
   var sphere = BabylonJs.MeshBuilder.CreateSphere("sphere1", {
     segments: 16,
     diameter: 2
@@ -61,9 +61,10 @@ function main(param) {
   sphere.material = material;
   sphere.position.y = 1.0;
   sphere.position.x = 5.0;
-  camera.setTarget(new BabylonJs.Vector3(0.0, 0.0, 0.0));
+  camera.setTarget(new BabylonJs.Vector3(0.0, 4.0, 0.0));
   camera.attachControl(true);
   camera.speed = 0.1;
+  add_video(scene);
   showWorldAxis(100, scene);
   return engine.runRenderLoop(function (param) {
     return scene.render();
