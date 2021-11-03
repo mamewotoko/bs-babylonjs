@@ -9,59 +9,47 @@ var Not_found_error = /* @__PURE__ */Caml_exceptions.create("Main.Not_found_erro
 
 var canvas_id = "renderCanvas";
 
-var canvas = document.getElementById(canvas_id);
-
-if (canvas == null) {
-      throw {
-            RE_EXN_ID: Not_found_error,
-            _1: "canvas element is not found",
-            Error: new Error()
-      };
+function main(param) {
+  var canvas = document.getElementById(canvas_id);
+  if (canvas == null) {
+    throw {
+      RE_EXN_ID: Not_found_error,
+      _1: "canvas element is not found",
+      Error: new Error()
+    };
+  }
+  var engine = new BabylonJs.Engine(canvas, true, {
+    preserveDrawingBuffer: true,
+    stencil: true
+  });
+  var scene = new BabylonJs.Scene(engine);
+  var v = new BabylonJs.Vector3(0.0, 3.0, -5.0);
+  var camera = new BabylonJs.DeviceOrientationCamera("camera1", v, scene);
+  new BabylonJs.HemisphericLight("light1", new BabylonJs.Vector3(0.0, 1.0, 1.0), scene);
+  var sphere = BabylonJs.MeshBuilder.CreateSphere("sphere1", {
+    segments: 16,
+    diameter: 2
+  }, scene);
+  var material = new BabylonJs.StandardMaterial("red", scene);
+  material.alpha = 1.0;
+  material.diffuseColor = new BabylonJs.Color3(1.0, 0, 0);
+  sphere.material = material;
+  sphere.position.y = 1.0;
+  camera.setTarget(new BabylonJs.Vector3(0.0, 0.0, 0.0));
+  camera.attachControl(true);
+  camera.speed = 0.1;
+  showWorldAxis(100, scene);
+  return engine.runRenderLoop(function (param) {
+    return scene.render();
+  });
 }
 
-var engine = new BabylonJs.Engine(canvas, true, {
-      preserveDrawingBuffer: true,
-      stencil: true
-});
-
-var scene = new BabylonJs.Scene(engine);
-
-var v = new BabylonJs.Vector3(0.0, 3.0, -5.0);
-
-var camera = new BabylonJs.DeviceOrientationCamera("camera1", v, scene);
-
-new BabylonJs.HemisphericLight("light1", new BabylonJs.Vector3(0.0, 1.0, 1.0), scene);
-
-var sphere = BabylonJs.MeshBuilder.CreateSphere("sphere1", {
-      segments: 16,
-      diameter: 2
-}, scene);
-
-var material = new BabylonJs.StandardMaterial("red", scene);
-
-material.alpha = 1.0;
-
-material.diffuseColor = new BabylonJs.Color3(1.0, 0, 0);
-
-sphere.material = material;
-
-sphere.position.y = 1.0;
-
-camera.setTarget(new BabylonJs.Vector3(0.0, 0.0, 0.0));
-
-camera.attachControl(true);
-
-camera.speed = 0.1;
-
-showWorldAxis(100, scene);
-
-engine.runRenderLoop(function (param) {
-      return scene.render();
-});
+window.addEventListener("DOMContentLoaded", main);
 
 exports.Not_found_error = Not_found_error;
 exports.canvas_id = canvas_id;
-/* canvas Not a pure module */
+exports.main = main;
+/*  Not a pure module */
 
 },{"babylonjs/babylon.js":2,"bs-platform/lib/js/caml_exceptions.js":3}],2:[function(require,module,exports){
 (function (global){(function (){
