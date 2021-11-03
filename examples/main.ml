@@ -7,7 +7,7 @@ exception Not_found_error of string
 
 let canvas_id = "renderCanvas"
 
-let _ =
+let main _ =
   match Dom.Document.getElementById canvas_id Dom.document with
     None -> raise (Not_found_error "canvas element is not found")
   | Some canvas ->
@@ -36,4 +36,12 @@ let _ =
      camera ## attachControl true;
      camera ## speed #= 0.1;
      showWorldAxis 100. scene;
-     engine ## runRenderLoop (fun () -> scene ## render ());
+     engine ## runRenderLoop (fun () -> scene ## render ())
+
+let _ =
+  Dom.Window.addEventListener "DOMContentLoaded" main Dom.window
+
+(* let _ =
+ *   Dom.Window.addPopStateEventListener
+ *     (Dom.PopStateEvent.make "resize")
+ *     fun () ->  *)
