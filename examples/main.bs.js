@@ -36,6 +36,14 @@ var sphere = BabylonJs.MeshBuilder.CreateSphere("sphere1", {
       diameter: 2
     }, scene);
 
+var material = new BabylonJs.StandardMaterial("red", scene);
+
+material.alpha = 1.0;
+
+material.diffuseColor = new BabylonJs.Color3(1.0, 0, 0);
+
+sphere.material = material;
+
 sphere.position.y = 1.0;
 
 camera.setTarget(new BabylonJs.Vector3(0.0, 0.0, 0.0));

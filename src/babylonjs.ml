@@ -16,6 +16,20 @@ sig
   external make: float -> float -> float -> t = "Vector3" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = Vector3
 
+module rec Color3:
+sig
+  class type _color3 =
+    object
+      method r: float [@@bs.set] [@@bs.get]
+      method g: float [@@bs.set] [@@bs.get]
+      method b: float [@@bs.set] [@@bs.get]
+      (* method add: t -> t *)
+    end [@bs]
+  type t = _color3 Js.t
+  external make: float -> float -> float -> t = "Color3" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
+
+end = Color3
+
 module rec Engine:
   sig
     class type _engine =
@@ -71,28 +85,47 @@ sig
   external make: string -> param -> Scene.t -> t = "DynamicTexture" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = DynamicTexture
 
-
-
 module rec HemisphericLight:
 sig
   type t
   external make: string -> Vector3.t -> Scene.t -> t = "HemisphericLight" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = HemisphericLight
 
+(* material *)
+module rec StandardMaterial:
+sig
+  class type _standard_material =
+    object
+      method alpha: float [@@bs.set] [@@bs.get]
+      method diffuseColor: Color3.t [@@bs.set] [@@bs.get]
+    end [@bs]
+  type t = _standard_material Js.t
+  external make: string -> Scene.t -> t = "StandardMaterial" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
+end = StandardMaterial
+
+(* mesh *)
 module rec MeshBuilder:
 sig
   (* todo: check document and type*)
   class type _mesh =
     object
       method position: Vector3.t [@@bs.get]
+      (* TODO: modify type to material*)
+      method material: StandardMaterial.t [@@bs.set] [@@bs.get]
     end [@bs]
-  type param = {
-      segments: int [@bs.optional];
-      diameter: int [@bs.optional];
-      (* sideOrientation: *)
-    } [@@bs.deriving abstract]
   type t = _mesh Js.t
-  (* TODO add "MeshBuilder" as submodule *)
-  (* TODO ... do not use BabylonJS... *)
-  external createSphere: string -> param -> Scene.t -> t = "BabylonJs.MeshBuilder.CreateSphere" [@@bs.val]
+
+  (* separate module to define params for each shape *)
+  module Sphere:
+  sig
+    type param = {
+        segments: int [@bs.optional];
+        diameter: int [@bs.optional];
+        (* sideOrientation: *)
+      } [@@bs.deriving abstract]
+
+    (* TODO add "MeshBuilder" as submodule *)
+    (* TODO ... do not use BabylonJS... *)
+    external create: string -> param -> Scene.t -> t = "BabylonJs.MeshBuilder.CreateSphere" [@@bs.val]
+  end
 end = MeshBuilder
