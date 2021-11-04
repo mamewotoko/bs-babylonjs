@@ -88,7 +88,7 @@ module rec DynamicTexture:
 sig
   class type _dynamictexture =
     object
-      method getCotext: unit -> Canvas2d.t
+      method getContext: unit -> Canvas2d.t
       method hasAlpha: bool [@@bs.set] [@@bs.get]
       method drawText: string -> float -> float -> string (* font *) -> Color3.t -> string -> bool -> unit
     end [@bs]
