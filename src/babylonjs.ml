@@ -84,15 +84,26 @@ sig
   external make: string -> Vector3.t -> Scene.t -> t = "DeviceOrientationCamera" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = DeviceOrientationCamera
 
+module rec Texture:
+sig
+  class type _texture =
+    object
+    end [@bs]
+
+  type t = _texture Js.t
+end = Texture
+
+(* TODO: todo subtype "Texture" *)
 module rec DynamicTexture:
 sig
-  class type _dynamictexture =
+  class type _dynamic =
     object
+      inherit Texture._texture
       method getContext: unit -> Canvas2d.t
       method hasAlpha: bool [@@bs.set] [@@bs.get]
       method drawText: string -> float -> float -> string (* font *) -> Color3.t -> string -> bool -> unit
     end [@bs]
-  type t = _dynamictexture Js.t
+  type t = _dynamic Js.t
   type param = {
       width: float [@bs.optional];
       height: float [@bs.optional];
@@ -111,15 +122,17 @@ sig
     end [@bs]
 
   type video_t = _video_element Js.t
-  class type _videotexture =
+  class type _video =
     object
+      inherit Texture._texture
       method video: video_t [@@bs.set] [@@bs.get]
       (* method getCotext: unit -> Canvas2d.t
        * method hasAlpha: bool [@@bs.set] [@@bs.get]
        * method drawText: string -> float -> float -> string (\* font *\) -> Color3.t -> string ->
 bool -> unit *)
     end [@bs]
-  type t = _videotexture Js.t
+  type t = _video Js.t
+
   external make: string -> string (* video path *) -> Scene.t -> bool -> t = "VideoTexture" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
   type param = {
       maxWidth: int [@bs.optional];
@@ -143,7 +156,7 @@ sig
       method alpha: float [@@bs.set] [@@bs.get]
       method diffuseColor: Color3.t [@@bs.set] [@@bs.get]
       (* TODO: make abstract Texture.t *)
-      method diffuseTexture: VideoTexture.t [@@bs.set] [@@bs.get]
+      method diffuseTexture: Texture.t [@@bs.set] [@@bs.get]
     end [@bs]
   type t = _standard_material Js.t
   external make: string -> Scene.t -> t = "StandardMaterial" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]

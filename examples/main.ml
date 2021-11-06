@@ -24,9 +24,8 @@ let add_video scene =
                                          ())
                                       scene) in
 
-
      video_material ## diffuseColor #= (Color3.make 1. 1. 1.);
-     video_material ## diffuseTexture #= texture;
+     video_material ## diffuseTexture #= (texture :> Texture.t);
      plane ## material #= video_material;
      plane ## position ## z #= 5.;
      plane ## position ## y #= (height /. 2.0);
