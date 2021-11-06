@@ -102,6 +102,7 @@ sig
       method getContext: unit -> Canvas2d.t
       method hasAlpha: bool [@@bs.set] [@@bs.get]
       method drawText: string -> float -> float -> string (* font *) -> Color3.t -> string -> bool -> unit
+      method update: unit -> unit
     end [@bs]
   type t = _dynamic Js.t
   type param = {
