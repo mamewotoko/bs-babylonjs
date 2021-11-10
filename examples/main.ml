@@ -3,6 +3,8 @@ open Babylonjs
 
 external showWorldAxis: float -> Scene.t -> unit = "showWorldAxis" [@@bs.val]
 
+let use_video = false
+
 exception Not_found_error of string
 
 let pi = 2. *. asin 1.
@@ -71,9 +73,9 @@ let main _ =
      camera ## speed #= 0.1;
      (* camera ## position ## y #= 8.; *)
 
-     add_video scene;
-     (* plane ## rotation ## y #= pi; *)
-     (* texture ## video ## play (); *)
+     if use_video then
+         add_video scene;
+
      showWorldAxis 100. scene;
      engine ## runRenderLoop (fun () -> scene ## render ());
      (* Dom.EventTarget.asEventTarget Dom.document *)

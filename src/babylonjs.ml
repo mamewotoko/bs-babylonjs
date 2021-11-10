@@ -61,12 +61,24 @@ module rec Scene:
                    -> t = "Scene" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
 end = Scene
 
+(* Camera > TragetCamera > FreeCamera *)
+
+module rec TargetCamera:
+sig
+  class type _camera =
+    object
+      method position: Vector3.t
+      method attachControl: bool -> unit
+      method setTarget: Vector3.t -> unit
+    end [@bs]
+  type t = _camera Js.t
+end = TargetCamera
+
 module rec FreeCamera:
 sig
   class type _freecamera =
     object
-      method attachControl: bool -> unit
-      method setTarget: Vector3.t -> unit
+      inherit TargetCamera._camera
     end [@bs]
   type t = _freecamera Js.t
   external make: string -> Vector3.t -> Scene.t -> t = "FreeCamera" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
@@ -76,9 +88,16 @@ module rec DeviceOrientationCamera:
 sig
   class type _camera =
     object
-      method attachControl: bool -> unit
-      method setTarget: Vector3.t -> unit
+      inherit FreeCamera._freecamera
       method speed: float [@@bs.set] [@@bs.get]
+      method keysLeft: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysRight: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysRotateLeft: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysRotateRight: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysUp: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysUpward: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysDown: int Js.Array.t [@@bs.set] [@@bs.get]
+      method keysDownward: int Js.Array.t [@@bs.set] [@@bs.get]
     end [@bs]
   type t = _camera Js.t
   external make: string -> Vector3.t -> Scene.t -> t = "DeviceOrientationCamera" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
@@ -155,9 +174,20 @@ sig
   class type _standard_material =
     object
       method alpha: float [@@bs.set] [@@bs.get]
+
       method diffuseColor: Color3.t [@@bs.set] [@@bs.get]
+      method specularColor: Color3.t [@@bs.set] [@@bs.get]
+      method emissiveColor: Color3.t [@@bs.set] [@@bs.get]
+      method ambientColor: Color3.t [@@bs.set] [@@bs.get]
+
       (* TODO: make abstract Texture.t *)
       method diffuseTexture: Texture.t [@@bs.set] [@@bs.get]
+      method specularTexture: Texture.t [@@bs.set] [@@bs.get]
+      method emissiveTexture: Texture.t [@@bs.set] [@@bs.get]
+      method ambientTexture: Texture.t [@@bs.set] [@@bs.get]
+      method opacityTexture: Texture.t [@@bs.set] [@@bs.get]
+
+      method wireframe: bool [@@bs.set] [@@bs.get]
     end [@bs]
   type t = _standard_material Js.t
   external make: string -> Scene.t -> t = "StandardMaterial" [@@bs.new] [@@bs.module "babylonjs/babylon.js"]
