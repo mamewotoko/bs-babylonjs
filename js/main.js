@@ -64,7 +64,6 @@ function main(param) {
   camera.setTarget(new BabylonJs.Vector3(0.0, 4.0, 0.0));
   camera.attachControl(true);
   camera.speed = 0.1;
-  add_video(scene);
   showWorldAxis(100, scene);
   return engine.runRenderLoop(function (param) {
     return scene.render();
@@ -73,6 +72,9 @@ function main(param) {
 
 window.addEventListener("DOMContentLoaded", main);
 
+var use_video = false;
+
+exports.use_video = use_video;
 exports.Not_found_error = Not_found_error;
 exports.pi = pi;
 exports.canvas_id = canvas_id;
