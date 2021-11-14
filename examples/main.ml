@@ -9,6 +9,7 @@ exception Not_found_error of string
 
 let pi = 2. *. asin 1.
 let canvas_id = "renderCanvas"
+
 (* TODO: use Dom.EventTarget.addEventListener *)
 external addEventListener: string -> (unit -> unit) -> bool -> unit = "" [@@bs.val][@@bs.scope "document"]
 

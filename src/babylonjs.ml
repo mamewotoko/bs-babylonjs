@@ -199,7 +199,7 @@ sig
   (* todo: check document and type*)
   class type _mesh =
     object
-      method position: Vector3.t [@@bs.get]
+      method position: Vector3.t [@@bs.set] [@@bs.get]
       method rotation: Vector3.t [@@bs.set] [@@bs.get]
       (* TODO: modify type to material*)
       method material: StandardMaterial.t [@@bs.set] [@@bs.get]
